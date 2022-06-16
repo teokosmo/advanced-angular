@@ -7,12 +7,14 @@ import { LoginComponent } from './auth/login/login.component';
 import {FormsModule} from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 import { HelloComponent } from './hello/hello.component';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HelloComponent
+    HelloComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

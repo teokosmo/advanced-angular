@@ -17,7 +17,8 @@
     "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
     "build:client-and-server-bundles": "ng build --prod && ng run advanced:server:production",
     "app:universal:build": "npm run build:ssr",
-    "app:universal:serve": "npm run serve:ssr"
+    "app:universal:serve": "npm run serve:ssr",
+    "cypress": "./node_modules/.bin/cypress open"
   },
   "private": true,
   "dependencies": {
@@ -51,6 +52,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.5.0",
+    "cypress": "^10.1.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.0.0",

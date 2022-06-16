@@ -1,0 +1,46 @@
+<div class="container container-login">
+  <h2 data-cy="h2-amount">{{ bankAmount }}</h2>
+  <div class="row">
+    <div class="col-sm">
+      <form [formGroup]="accountForm">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Amount</label>
+          <input
+            data-cy="input-amount"
+            type="number"
+            class="form-control"
+            id="amountNumber"
+            aria-describedby="amountHelp"
+            formControlName="amount"
+          />
+          <small id="emailHelp" class="form-text text-muted"
+            >We'll never share your email with anyone else.</small
+          >
+        </div>
+        <div class="form-group">
+          <button
+            data-cy="button-deposit"
+            type="submit"
+            class="btn btn-primary"
+            (click)="deposit()"
+          >
+            Deposit
+          </button>
+        </div>
+        <div class="form-group">
+          <button
+            data-cy="button-withdraw"
+            type="submit"
+            class="btn btn-primary"
+            (click)="withdraw()"
+          >
+            Withdraw
+          </button>
+        </div>
+        <div *ngIf="errorMsg !== ''" class="alert alert-danger">
+          <span data-cy="span-error">{{ errorMsg }}</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
