@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Subscription, throwError } from "rxjs";
+import { Observable } from "rxjs/internal/Observable";
+import { catchError, take } from "rxjs/operators";
 import { BankAccountService } from "../services/bank-account.service";
 
 @Component({
@@ -21,27 +24,47 @@ export class AccountComponent implements OnInit {
     });
   }
 
-  get bankAmount(): number {
-    return this.bankAccountService.bankAccountAmount;
+  get bankAmount$(): Observable<number> {
+    return this.bankAccountService.bankAccountAmount$;
   }
 
   ngOnInit() {}
 
+  ngOnDestroy() {}
+
   deposit(): void {
-    try {
-      this.errorMsg = "";
-      this.bankAccountService.deposit(this.accountForm.value.amount);
-    } catch (err) {
-      this.errorMsg = err.message;
-    }
+    this.errorMsg = "";
+    this.bankAccountService
+      .deposit(this.accountForm.value.amount)
+      .pipe(
+        take(1),
+        catchError((err) => {
+          return throwError(err);
+        })
+      )
+      .subscribe(
+        (x) => console.log("AccountComponent.deposit", x),
+        (err) => {
+          this.errorMsg = err.message;
+        }
+      );
   }
 
   withdraw(): void {
-    try {
-      this.errorMsg = "";
-      this.bankAccountService.withdraw(this.accountForm.value.amount);
-    } catch (err) {
-      this.errorMsg = err.message;
-    }
+    this.errorMsg = "";
+    this.bankAccountService
+      .withdraw(this.accountForm.value.amount)
+      .pipe(
+        take(1),
+        catchError((err) => {
+          return throwError(err);
+        })
+      )
+      .subscribe(
+        (x) => console.log("AccountComponent.withdraw", x),
+        (err) => {
+          this.errorMsg = err.message;
+        }
+      );
   }
 }
